@@ -44,7 +44,7 @@ a:link {color: #fb9d04;
 }
 
 section{
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 .cover{
@@ -58,9 +58,10 @@ section{
 .headline h2{display:inline;}
 
 .content{
-  min-height:100vh;
+  min-height: 100%;
+	min-height: 100vh;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   flex-direction: column;
 }
 
@@ -98,17 +99,18 @@ section .event{
 }
 
 .section .event .date{font-size:24px; border-bottom:1px solid #fff;}
-.section .event .date div{padding:30px 20px 10px 20px;}
+.section .event .date div{padding:20px 20px 10px 20px;}
 .section .event .text{border-left:1px solid #fff; margin-left:40px; padding:10px 20px 10px 20px;}
 
 section .tweet{
-  padding:0 20px 0 20px;
+  padding:5px 20px 0 20px;
+  
 }
 
-section .ratings{
+.ratings{
   background: #333333;
   color:#fff;
-  padding:20px;
+  padding:12px 20px 12px 20px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -116,16 +118,31 @@ section .ratings{
   text-align:center;
   align-self: end;
   width: 100vw;
+  position:fixed;
+  bottom:60px;
 }
 
-.section .ratings .head{
+.ratings .head{
   display: block;
   padding:0 0 5px 0;
+  font-size:10.5px;
 }
 
-section .ratings .value{
+.ratings .value{
   display: block;
   color:#FF9900;
+  font-size:15px;
+  
+}
+
+.next{
+  background: #605F5F;
+  height: 60px;
+  align-self: end;
+  width: 100vw;
+  margin-top:auto;
+  position:fixed;
+  bottom:0;
   
 }
 
@@ -135,6 +152,7 @@ section .next{
   align-self: end;
   width: 100vw;
   margin-top:auto;
+  position:relative;
   
 }
 

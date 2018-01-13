@@ -88,8 +88,8 @@
       
       <div id="elastic" class="hidden">
 
-        <section class="section cover" id="s_1" style="background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(images/GettyImages-901874902.jpg);padding:0 20px 0 20px;">
-          <div class="content">
+        <section class="section cover" id="s_1" style="background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(images/GettyImages-901874902.jpg);padding:0 20px 0 20px;justify-content: space-between;">
+          <div class="content" style="justify-content: space-between;">
             <div class="spacer"></div>
             <div class="headline">
               <h2><mark class="highlight">Al Jazeera takes a look at President Trump's first year in the Oval Office</mark></h2>
@@ -99,11 +99,55 @@
         </section>
 
       </div>
+
+      <div class="ratings hidden">
+        <div class="date">
+          <div class="head">APPROVAL RATING</div>
+          <div class="value">Dec 25-31, 2017</div>
+        </div>
+        <div class="approve">
+          <div class="head">APPROVE</div>
+          <div class="value">39%</div>  
+        </div>
+        <div class="disapprove">
+          <div class="head">DISAPPROVE</div>
+          <div class="value">55%</div>  
+        </div>
+        <div class="no-opinion">
+          <div class="head">NO OPINION</div>
+          <div class="value">6%</div>  
+        </div>
+      </div>
+
+      <div class="next hidden">
+          <a class="a-right" href="#" style="float:right; padding:17px 20px;" data-scroll=""><i class="arrow right"></i></a>
+          <a class="a-left" href="#" style="float:left; padding:17px 20px;" data-scroll=""><i class="arrow left"></i></a>
+      </div>
     </div>
+
+    <script>window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+          t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      
+        t._e = [];
+        t.ready = function(f) {
+          t._e.push(f);
+        };
+      
+        return t;
+      }(document, "script", "twitter-wjs"));</script>
   
     <script src="https://unpkg.com/sweet-scroll/sweet-scroll.min.js"></script>
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script> -->
 
     <script>
+
+      
       
       $(document).ready(function(){
 
@@ -116,7 +160,7 @@
           $(rows).each(function(){
           
             var template = `
-            <section class="section" id="s_${count}">
+            <section class="section" id="s_${count}" data-rating-date="${this.gsx$approvalrating.$t}" data-rating-approve="${this.gsx$approve.$t}" data-rating-disapprove="${this.gsx$disapprove.$t}" data-rating-noopinion="${this.gsx$noopinion.$t}" data-next="#s_${count+1}" data-prev="#s_${count-1}">
                 <div class="content">
                   
                   <div class="event">
@@ -124,31 +168,12 @@
                     <div class="text">${this.gsx$text.$t}</div>  
                   </div>
 
-                  <!--<div class="tweet">${this.gsx$tweet.$t}</div>-->
+                  <div class="tweet">${this.gsx$tweet.$t}</div>
 
-                  <div class="ratings">
-                    <div class="date">
-                      <div class="head">APPROVAL RATING</div>
-                      <div class="value">${this.gsx$approvalrating.$t}</div>
-                    </div>
-                    <div class="approve">
-                      <div class="head">APPROVE</div>
-                      <div class="value">${this.gsx$approve.$t}%</div>  
-                    </div>
-                    <div class="disapprove">
-                      <div class="head">DISAPPROVE</div>
-                      <div class="value">${this.gsx$disapprove.$t}%</div>  
-                    </div>
-                    <div class="no-opinion">
-                      <div class="head">NO OPINION</div>
-                      <div class="value">${this.gsx$noopinion.$t}%</div>  
-                    </div>
-                  </div>
-
-                  <div class="next">
-                    <a href="#" style="float:right; padding:20px;" data-scroll="#s_${count+1}"><i class="arrow right"></i></a>
-                    <a href="#" style="float:left; padding:20px;" data-scroll="#s_${count-1}"><i class="arrow left"></i></a>
-                  </div>
+                  <!--<div class="next">
+                      <a href="#" style="float:right; padding:17px 20px;" data-scroll="#s_${count+1}"><i class="arrow right"></i></a>
+                      <a href="#" style="float:left; padding:17px 20px;" data-scroll="#s_${count-1}"><i class="arrow left"></i></a>
+                  </div>-->
 
                 </div>
             </section>`;
@@ -172,28 +197,64 @@
             stopPropagation: true,
             quickMode: true,
 
-            before: null,
-            after: null,
-            cancel: null,
-            complete: null,
-            step: null,
+            before: function(){ console.log('before executed'); },
+            after: function(){ console.log('after executed'); },
+            cancel: function(){ console.log('cancel executed'); },
+            complete: function(){ console.log('complete executed'); 
+              $('.ratings .date .value').text(($(this.ctx.hash).attr('data-rating-date')));   
+              $('.ratings .approve .value').text(($(this.ctx.hash).attr('data-rating-approve')));
+              $('.ratings .disapprove .value').text(($(this.ctx.hash).attr('data-rating-disapprove')));
+              $('.ratings .no-opinion .value').text(($(this.ctx.hash).attr('data-rating-noopinion')));
+              $('.next .a-right').attr('data-scroll', $(this.ctx.hash).attr('data-next'));
+              $('.next .a-left').attr('data-scroll', $(this.ctx.hash).attr('data-prev'));
+            },
+            
           }, "#wrapper");
 
-          var s = document.createElement("script");
-          s.async = '';
-          s.charset = "utf-8";
-          s.src = "https://platform.twitter.com/widgets.js";
-          $("body").append(s);
-          $('.loader').toggleClass('hidden');
-          $('#elastic').toggleClass('hidden');
+          twttr.widgets.load()
+          
+          $('#wrapper').scroll(function(){
 
+            var x = $(this).scrollLeft();
+            if(x >= (sweetScroll.$el.clientWidth - 20))
+            {
+              $('.next').removeClass('hidden');
+              $('.ratings').removeClass('hidden');
+            }
+            else
+            {
+              $('.next').addClass('hidden');
+              $('.ratings').addClass('hidden');
+            }
+              
+            });
+          
         });
+
+        console.log('document ready');
 
       });
 
-      
+      $(window).on('load', function(){
 
+        console.log('window loaded');
+        $('.loader').toggleClass('hidden');
+        $('#elastic').toggleClass('hidden');
+
+        twttr.events.bind(
+          'loaded',
+          function (event) {
+            // event.widgets.forEach(function (widget) {
+            //   console.log("Created widget", widget.id);
+            // });
+            
+          }
+        );
+
+      });
     </script>
+
+
     
 
     <!--Chartbeat AJE header -->
