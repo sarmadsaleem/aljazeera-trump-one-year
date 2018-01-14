@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AJ Labs project title</title>
+    <title>Al Jazeera takes a look at President Trump's first year in the Oval Office | Al Jazeera English</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
     <meta name="author" content="Al Jazeera"/>
     <meta property="og:title" content="AJ Labs project title"/>
@@ -26,21 +26,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.jpg">
     <link rel="shortcut icon" href="favicon.ico"/>
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/rrssb.css">
+
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="https://platform.twitter.com">
+    <link rel="dns-prefetch" href="https://ping.chartbeat.com">
+    <link rel="dns-prefetch" href="https://static.chartbeat.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://spreadsheets.google.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdn.syndication.twimg.com">
+    <link rel="dns-prefetch" href="https://syndication.twitter.com">
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="js/rrssb.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <style>
-        #wrapper_d {
-          width: 500vw;
-        }
-        .section {
-          float: left;
-          width: 20%;
-        }
-      </style>
+    <script src="js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
 
@@ -100,31 +106,13 @@
 
       </div>
 
-      <div class="ratings hidden">
-        <div class="date">
-          <div class="head">APPROVAL RATING</div>
-          <div class="value">Dec 25-31, 2017</div>
-        </div>
-        <div class="approve">
-          <div class="head">APPROVE</div>
-          <div class="value">39%</div>  
-        </div>
-        <div class="disapprove">
-          <div class="head">DISAPPROVE</div>
-          <div class="value">55%</div>  
-        </div>
-        <div class="no-opinion">
-          <div class="head">NO OPINION</div>
-          <div class="value">6%</div>  
-        </div>
-      </div>
-
       <div class="next hidden">
           <a class="a-right" href="#" style="float:right; padding:17px 20px;" data-scroll=""><i class="arrow right"></i></a>
           <a class="a-left" href="#" style="float:left; padding:17px 20px;" data-scroll=""><i class="arrow left"></i></a>
       </div>
     </div>
 
+    <script src="https://unpkg.com/sweet-scroll/sweet-scroll.min.js"></script>
     <script>window.twttr = (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0],
           t = window.twttr || {};
@@ -140,52 +128,74 @@
         };
       
         return t;
-      }(document, "script", "twitter-wjs"));</script>
+      }(document, "script", "twitter-wjs"));
+    </script>
   
-    <script src="https://unpkg.com/sweet-scroll/sweet-scroll.min.js"></script>
-    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script> -->
-
     <script>
-
-      
-      
-      $(document).ready(function(){
-
-        var endpoint = 'https://spreadsheets.google.com/feeds/list/1lDT8cX1RX-mOMcTxkUq0lpNuuBdtgbbmqsiOl43-M-M/4/public/values?alt=json';
+      $(function(){
+        const endpoint = 'https://spreadsheets.google.com/feeds/list/1lDT8cX1RX-mOMcTxkUq0lpNuuBdtgbbmqsiOl43-M-M/4/public/values?alt=json';
         $.getJSON(endpoint, function(data) {
-          
           rows = data.feed.entry;
-          var count = 2;
-
+          let count = 2;
           $(rows).each(function(){
-          
-            var template = `
-            <section class="section" id="s_${count}" data-rating-date="${this.gsx$approvalrating.$t}" data-rating-approve="${this.gsx$approve.$t}" data-rating-disapprove="${this.gsx$disapprove.$t}" data-rating-noopinion="${this.gsx$noopinion.$t}" data-next="#s_${count+1}" data-prev="#s_${count-1}">
-                <div class="content">
-                  
-                  <div class="event">
-                    <div class="date"><div>${this.gsx$date.$t}</div></div>
-                    <div class="text">${this.gsx$text.$t}</div>  
+            const template = `
+              <section class="section" id="s_${count}" data-rating-date="${this.gsx$approvalrating.$t}" data-rating-approve="${this.gsx$approve.$t}" data-rating-disapprove="${this.gsx$disapprove.$t}" data-rating-noopinion="${this.gsx$noopinion.$t}" data-next="#s_${count+1}" data-prev="#s_${count-1}">
+                  <div class="content">
+                    <div class="event">
+                      <div class="date"><div>${this.gsx$date.$t}</div></div>
+                      <div class="text">${this.gsx$text.$t}</div>  
+                    </div>
+                    <div class="ratings">
+                      <div class="date">
+                        <div class="head">APPROVAL RATING</div>
+                        <div class="value">${this.gsx$approvalrating.$t}</div>
+                      </div>
+                      <div class="approve">
+                        <div class="head">APPROVE</div>
+                        <div class="value">${this.gsx$approve.$t}%</div>  
+                      </div>
+                      <div class="disapprove">
+                        <div class="head">DISAPPROVE</div>
+                        <div class="value">${this.gsx$disapprove.$t}%</div>  
+                      </div>
+                      <div class="no-opinion">
+                        <div class="head">NO OPINION</div>
+                        <div class="value">${this.gsx$noopinion.$t}%</div>  
+                      </div>
+                    </div>
+                    <div class="tweet">${this.gsx$tweet.$t}</div>
                   </div>
-
-                  <div class="tweet">${this.gsx$tweet.$t}</div>
-
-                  <!--<div class="next">
-                      <a href="#" style="float:right; padding:17px 20px;" data-scroll="#s_${count+1}"><i class="arrow right"></i></a>
-                      <a href="#" style="float:left; padding:17px 20px;" data-scroll="#s_${count-1}"><i class="arrow left"></i></a>
-                  </div>-->
-
-                </div>
-            </section>`;
-
+              </section>`;
             $('#elastic').append(template);
             count++;
           });
 
-          $("#elastic").css("width", count*100+'vw');
-          $("section").css("width", 100/count+'%');
+          resizeSections(count);
+          const sweetScroll = initializeSweetScroll();
+          toggleSpinner();
+          toggleNavigation(sweetScroll);
+          
+        });
+      });
 
-          var sweetScroll = new SweetScroll({
+      //   twttr.events.bind(
+      //     'loaded',
+      //     function (event) {
+      //       // event.widgets.forEach(function (widget) {
+      //       //   console.log("Created widget", widget.id);
+      //       // });
+      //     }
+      //   );
+
+      //resize container and sections
+      function resizeSections(count){
+        $("#elastic").css("width", count*100+'vw');
+        $("section").css("width", 100/count+'%');
+      }
+
+      // initialize sweetScroll
+      function initializeSweetScroll(){
+        return new SweetScroll({
             duration: 500,
             easing: 'easeOutExpo',
             offset: 0,
@@ -196,104 +206,80 @@
             preventDefault: true,
             stopPropagation: true,
             quickMode: true,
-
-            before: function(){ console.log('before executed'); },
-            after: function(){ console.log('after executed'); },
-            cancel: function(){ console.log('cancel executed'); },
-            complete: function(){ console.log('complete executed'); 
-              $('.ratings .date .value').text(($(this.ctx.hash).attr('data-rating-date')));   
-              $('.ratings .approve .value').text(($(this.ctx.hash).attr('data-rating-approve')));
-              $('.ratings .disapprove .value').text(($(this.ctx.hash).attr('data-rating-disapprove')));
-              $('.ratings .no-opinion .value').text(($(this.ctx.hash).attr('data-rating-noopinion')));
+            before: null,
+            after: null,
+            cancel: null,
+            complete: function(){ 
               $('.next .a-right').attr('data-scroll', $(this.ctx.hash).attr('data-next'));
               $('.next .a-left').attr('data-scroll', $(this.ctx.hash).attr('data-prev'));
             },
-            
           }, "#wrapper");
+      }
 
-          twttr.widgets.load()
-          
-          $('#wrapper').scroll(function(){
-
-            var x = $(this).scrollLeft();
-            if(x >= (sweetScroll.$el.clientWidth - 20))
-            {
-              $('.next').removeClass('hidden');
-              $('.ratings').removeClass('hidden');
-            }
-            else
-            {
-              $('.next').addClass('hidden');
-              $('.ratings').addClass('hidden');
-            }
-              
-            });
-          
-        });
-
-        console.log('document ready');
-
-      });
-
-      $(window).on('load', function(){
-
-        console.log('window loaded');
+      // hide spinner and show content
+      function toggleSpinner(){
         $('.loader').toggleClass('hidden');
         $('#elastic').toggleClass('hidden');
+      }
 
-        twttr.events.bind(
-          'loaded',
-          function (event) {
-            // event.widgets.forEach(function (widget) {
-            //   console.log("Created widget", widget.id);
-            // });
+      // show navigational arrows after first card
+      function toggleNavigation(sweetScroll){
+        $('#wrapper').scroll(function(){
+          const x = $(this).scrollLeft();
+          if(x >= (sweetScroll.$el.clientWidth - 20) && $('.next').hasClass('hidden'))
+          {
+            $('.next').removeClass('hidden');
+            twttr.widgets.load(
+              document.getElementsByClassName("tweet")
+            );
             
           }
-        );
-
-      });
+          else if(x <= (sweetScroll.$el.clientWidth - 20) && !($('.next').hasClass('hidden')))
+          {
+            $('.next').addClass('hidden');
+          }
+        });
+      }
     </script>
-
-
-    
 
     <!--Chartbeat AJE header -->
     <script type='text/javascript'>var _sf_startpt=(new Date()).getTime()</script>
     <!--GOOGLE ANALYTICS AJE -->
-    <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-     ga('create', 'UA-1615344-7', {'allowAnchor': true});
-     ga('send', 'pageview', {
-     'page': location.pathname + location.search  + location.hash
-    });
-    </script>
+    // <script>
+    //  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    //  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    //  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    //  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    //  ga('create', 'UA-1615344-7', {'allowAnchor': true});
+    //  ga('send', 'pageview', {
+    //  'page': location.pathname + location.search  + location.hash
+    // });
+    // </script>
+
     <!--CHARTBEAT AJE -->
-    <script type='text/javascript'>
-        var _sf_async_config={};
-        //* CONFIGURATION START *
-        _sf_async_config.uid = 3291;
-        _sf_async_config.domain = 'aljazeera.com';
-        _sf_async_config.useCanonical = true;
-        _sf_async_config.sections = 'AJ Labs';
-        _sf_async_config.authors = 'AJ Labs';
-        _sf_async_config.title = "AJ Labs project title";
-        //* CONFIGURATION END
-        (function(){
-          function loadChartbeat() {
-            window._sf_endpt=(new Date()).getTime();
-            var e = document.createElement('script');
-            e.setAttribute('language', 'javascript');
-            e.setAttribute('type', 'text/javascript');
-            e.setAttribute('src', '//static.chartbeat.com/js/chartbeat.js');
-            document.body.appendChild(e);
-          }
-          var oldonload = window.onload;
-          window.onload = (typeof window.onload != 'function') ?
-             loadChartbeat : function() { oldonload(); loadChartbeat(); };
-        })();
-    </script>
+    // <script type='text/javascript'>
+    //     var _sf_async_config={};
+    //     //* CONFIGURATION START *
+    //     _sf_async_config.uid = 3291;
+    //     _sf_async_config.domain = 'aljazeera.com';
+    //     _sf_async_config.useCanonical = true;
+    //     _sf_async_config.sections = 'AJ Labs';
+    //     _sf_async_config.authors = 'AJ Labs';
+    //     _sf_async_config.title = "AJ Labs project title";
+    //     //* CONFIGURATION END
+    //     (function(){
+    //       function loadChartbeat() {
+    //         window._sf_endpt=(new Date()).getTime();
+    //         var e = document.createElement('script');
+    //         e.setAttribute('language', 'javascript');
+    //         e.setAttribute('type', 'text/javascript');
+    //         e.setAttribute('src', '//static.chartbeat.com/js/chartbeat.js');
+    //         document.body.appendChild(e);
+    //       }
+    //       var oldonload = window.onload;
+    //       window.onload = (typeof window.onload != 'function') ?
+    //          loadChartbeat : function() { oldonload(); loadChartbeat(); };
+    //     })();
+    // </script>
 </body>
 </html>
