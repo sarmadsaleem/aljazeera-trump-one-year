@@ -29,23 +29,18 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/rrssb.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css">
 
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-    <link rel="dns-prefetch" href="https://platform.twitter.com">
-    <link rel="dns-prefetch" href="https://ping.chartbeat.com">
-    <link rel="dns-prefetch" href="https://static.chartbeat.com">
-    <link rel="dns-prefetch" href="https://www.google-analytics.com">
-    <link rel="dns-prefetch" href="https://spreadsheets.google.com">
-    <link rel="dns-prefetch" href="https://unpkg.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://cdn.syndication.twimg.com">
-    <link rel="dns-prefetch" href="https://syndication.twitter.com">
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="js/rrssb.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
+    <!-- High priority JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+       // initilize webfonts
+       WebFont.load({
+         google: {
+           families: ['Source Sans Pro:300,400']
+         }
+       });
+    </script>
 
 </head>
 <body>
@@ -83,36 +78,41 @@
     </div>
   </header>
 
-  <div id="wrapper">
-
-      <div class="loader">
-          <div class="spinner" style="max-width: 50%;">
-              <div class="double-bounce1"></div>
-              <div class="double-bounce2"></div>
-          </div>
-      </div>
-      
-      <div id="elastic" class="hidden">
-
-        <section class="section cover" id="s_1" style="background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(images/GettyImages-901874902.jpg);padding:0 20px 0 20px;justify-content: space-between;">
-          <div class="content" style="justify-content: space-between;">
-            <div class="spacer"></div>
-            <div class="headline">
-              <h2><mark class="highlight">Al Jazeera takes a look at President Trump's first year in the Oval Office</mark></h2>
-              <span class="arrow-container"><a href="#" data-scroll="#s_2"><i class="arrow right"></i></a></span>
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-      <div class="next hidden">
-          <a class="a-right" href="#" style="float:right; padding:17px 20px;" data-scroll=""><i class="arrow right"></i></a>
-          <a class="a-left" href="#" style="float:left; padding:17px 20px;" data-scroll=""><i class="arrow left"></i></a>
-      </div>
+    <div class="loader">
+        <div class="spinner" style="max-width: 50%;">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
     </div>
 
-    <script src="https://unpkg.com/sweet-scroll/sweet-scroll.min.js"></script>
+    <!-- Slider main container -->
+    <div class="swiper-container">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <section class="swiper-slide section cover" id="s_1" style="background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(images/GettyImages-901874902.jpg);padding:0 20px 0 20px;justify-content: space-between;">
+              <div class="content" style="justify-content: space-between;">
+                <div class="spacer"></div>
+                <div class="headline">
+                  <h2><mark class="highlight">Al Jazeera takes a look at President Trump's first year in the Oval Office</mark></h2>
+                  <span class="arrow-container"><a href="#" data-scroll="#s_2"><i class="arrow right"></i></a></span>
+                </div>
+              </div>
+            </section>
+        </div>    
+        <!-- If we need navigation buttons -->
+        <div class="next hidden">
+            <a class="swiper-button-prev a-left" href="#" style=""><i class="arrow left"></i></a>
+            <a class="swiper-button-next a-right" href="#" style=""><i class="arrow right"></i></a>
+            
+        </div>
+
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/rrssb.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js"></script>
     <script>window.twttr = (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0],
           t = window.twttr || {};
@@ -133,13 +133,14 @@
   
     <script>
       $(function(){
+        // fetch data and populate events
         const endpoint = 'https://spreadsheets.google.com/feeds/list/1lDT8cX1RX-mOMcTxkUq0lpNuuBdtgbbmqsiOl43-M-M/4/public/values?alt=json';
         $.getJSON(endpoint, function(data) {
           rows = data.feed.entry;
           let count = 2;
           $(rows).each(function(){
             const template = `
-              <section class="section" id="s_${count}" data-rating-date="${this.gsx$approvalrating.$t}" data-rating-approve="${this.gsx$approve.$t}" data-rating-disapprove="${this.gsx$disapprove.$t}" data-rating-noopinion="${this.gsx$noopinion.$t}" data-next="#s_${count+1}" data-prev="#s_${count-1}">
+              <section class="swiper-slide section" id="s_${count}">
                   <div class="content">
                     <div class="event">
                       <div class="date"><div>${this.gsx$date.$t}</div></div>
@@ -166,120 +167,91 @@
                     <div class="tweet">${this.gsx$tweet.$t}</div>
                   </div>
               </section>`;
-            $('#elastic').append(template);
+            $('.swiper-wrapper').append(template);
             count++;
           });
 
-          resizeSections(count);
-          const sweetScroll = initializeSweetScroll();
+          // create swiper based on fetched data
+          const mySwiper = new Swiper ('.swiper-container', {
+            direction: 'horizontal',
+            loop: false,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+          })
+          
           toggleSpinner();
-          toggleNavigation(sweetScroll);
+          toggleNavigation(mySwiper);
           
         });
       });
 
-      //   twttr.events.bind(
-      //     'loaded',
-      //     function (event) {
-      //       // event.widgets.forEach(function (widget) {
-      //       //   console.log("Created widget", widget.id);
-      //       // });
-      //     }
-      //   );
-
-      //resize container and sections
-      function resizeSections(count){
-        $("#elastic").css("width", count*100+'vw');
-        $("section").css("width", 100/count+'%');
-      }
-
-      // initialize sweetScroll
-      function initializeSweetScroll(){
-        return new SweetScroll({
-            duration: 500,
-            easing: 'easeOutExpo',
-            offset: 0,
-            vertical: false,
-            horizontal: true,
-            cancellable: false,
-            updateURL: false,
-            preventDefault: true,
-            stopPropagation: true,
-            quickMode: true,
-            before: null,
-            after: null,
-            cancel: null,
-            complete: function(){ 
-              $('.next .a-right').attr('data-scroll', $(this.ctx.hash).attr('data-next'));
-              $('.next .a-left').attr('data-scroll', $(this.ctx.hash).attr('data-prev'));
-            },
-          }, "#wrapper");
-      }
-
       // hide spinner and show content
       function toggleSpinner(){
         $('.loader').toggleClass('hidden');
-        $('#elastic').toggleClass('hidden');
+        $('#swiper-container').toggleClass('hidden');
       }
 
       // show navigational arrows after first card
-      function toggleNavigation(sweetScroll){
-        $('#wrapper').scroll(function(){
-          const x = $(this).scrollLeft();
-          if(x >= (sweetScroll.$el.clientWidth - 20) && $('.next').hasClass('hidden'))
-          {
-            $('.next').removeClass('hidden');
-            twttr.widgets.load(
-              document.getElementsByClassName("tweet")
-            );
-            
-          }
-          else if(x <= (sweetScroll.$el.clientWidth - 20) && !($('.next').hasClass('hidden')))
+      function toggleNavigation(mySwiper){
+        // show arrows after first swipe
+        $('.arrow-container').on('click', function(){
+          mySwiper.slideNext();
+          $('.next').removeClass('hidden');
+          twttr.widgets.load(
+            document.getElementsByClassName("tweet")
+          );
+        })
+        // hide arrows if first slide
+        mySwiper.on('slideChange', function () {
+          if(mySwiper.isBeginning)
           {
             $('.next').addClass('hidden');
           }
         });
+
       }
     </script>
 
     <!--Chartbeat AJE header -->
     <script type='text/javascript'>var _sf_startpt=(new Date()).getTime()</script>
     <!--GOOGLE ANALYTICS AJE -->
-    // <script>
-    //  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    //  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    //  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    //  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    //  ga('create', 'UA-1615344-7', {'allowAnchor': true});
-    //  ga('send', 'pageview', {
-    //  'page': location.pathname + location.search  + location.hash
-    // });
-    // </script>
+    <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-1615344-7', {'allowAnchor': true});
+     ga('send', 'pageview', {
+     'page': location.pathname + location.search  + location.hash
+    });
+    </script>
 
     <!--CHARTBEAT AJE -->
-    // <script type='text/javascript'>
-    //     var _sf_async_config={};
-    //     //* CONFIGURATION START *
-    //     _sf_async_config.uid = 3291;
-    //     _sf_async_config.domain = 'aljazeera.com';
-    //     _sf_async_config.useCanonical = true;
-    //     _sf_async_config.sections = 'AJ Labs';
-    //     _sf_async_config.authors = 'AJ Labs';
-    //     _sf_async_config.title = "AJ Labs project title";
-    //     //* CONFIGURATION END
-    //     (function(){
-    //       function loadChartbeat() {
-    //         window._sf_endpt=(new Date()).getTime();
-    //         var e = document.createElement('script');
-    //         e.setAttribute('language', 'javascript');
-    //         e.setAttribute('type', 'text/javascript');
-    //         e.setAttribute('src', '//static.chartbeat.com/js/chartbeat.js');
-    //         document.body.appendChild(e);
-    //       }
-    //       var oldonload = window.onload;
-    //       window.onload = (typeof window.onload != 'function') ?
-    //          loadChartbeat : function() { oldonload(); loadChartbeat(); };
-    //     })();
-    // </script>
+    <script type='text/javascript'>
+        var _sf_async_config={};
+        //* CONFIGURATION START *
+        _sf_async_config.uid = 3291;
+        _sf_async_config.domain = 'aljazeera.com';
+        _sf_async_config.useCanonical = true;
+        _sf_async_config.sections = 'AJ Labs';
+        _sf_async_config.authors = 'AJ Labs';
+        _sf_async_config.title = "AJ Labs project title";
+        //* CONFIGURATION END
+        (function(){
+          function loadChartbeat() {
+            window._sf_endpt=(new Date()).getTime();
+            var e = document.createElement('script');
+            e.setAttribute('language', 'javascript');
+            e.setAttribute('type', 'text/javascript');
+            e.setAttribute('src', '//static.chartbeat.com/js/chartbeat.js');
+            document.body.appendChild(e);
+          }
+          var oldonload = window.onload;
+          window.onload = (typeof window.onload != 'function') ?
+             loadChartbeat : function() { oldonload(); loadChartbeat(); };
+        })();
+    </script>
 </body>
 </html>
