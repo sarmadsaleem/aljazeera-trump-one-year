@@ -195,19 +195,19 @@
 
       // show navigational arrows after first card
       function toggleNavigation(mySwiper){
-        // show arrows after first swipe
+
+        // slide to second
         $('.arrow-container').on('click', function(){
           mySwiper.slideNext();
-          $('.next').removeClass('hidden');
-          twttr.widgets.load(
-            document.getElementsByClassName("tweet")
-          );
         })
         // hide arrows if first slide
         mySwiper.on('slideChange', function () {
           if(mySwiper.isBeginning)
           {
             $('.next').addClass('hidden');
+          }
+          else if($('.next').hasClass('hidden')){
+            $('.next').removeClass('hidden');
           }
         });
 
