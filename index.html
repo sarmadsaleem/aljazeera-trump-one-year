@@ -90,7 +90,8 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             <!-- Slides -->
-            <section class="swiper-slide section cover" id="s_1" style="background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(images/GettyImages-901874902.jpg);padding:0 20px 0 20px;justify-content: space-between;">
+            <section class="swiper-slide section cover" id="s_1">
+              <div class="cover-image"></div>
               <div class="content" style="justify-content: space-between;">
                 <div class="spacer"></div>
                 <div class="headline">
@@ -141,30 +142,33 @@
           $(rows).each(function(){
             const template = `
               <section class="swiper-slide section" id="s_${count}">
-                  <div class="content">
-                    <div class="event">
-                      <div class="date"><div>${this.gsx$date.$t}</div></div>
-                      <div class="text">${this.gsx$text.$t}</div>  
+                  <div style="display:flex; flex-direction: row; height:100%;">
+                    <div class="content">
+                      <div class="event">
+                        <div class="date"><div>${this.gsx$date.$t}</div></div>
+                        <div class="text">${this.gsx$text.$t}</div>  
+                      </div>
+                      <div class="ratings">
+                        <div class="date">
+                          <div class="head">APPROVAL RATING</div>
+                          <div class="value">${this.gsx$approvalrating.$t}</div>
+                        </div>
+                        <div class="approve">
+                          <div class="head">APPROVE</div>
+                          <div class="value">${this.gsx$approve.$t}%</div>  
+                        </div>
+                        <div class="disapprove">
+                          <div class="head">DISAPPROVE</div>
+                          <div class="value">${this.gsx$disapprove.$t}%</div>  
+                        </div>
+                        <div class="no-opinion">
+                          <div class="head">NO OPINION</div>
+                          <div class="value">${this.gsx$noopinion.$t}%</div>  
+                        </div>
+                      </div>
+                      <div class="tweet">${this.gsx$tweet.$t}</div>
                     </div>
-                    <div class="ratings">
-                      <div class="date">
-                        <div class="head">APPROVAL RATING</div>
-                        <div class="value">${this.gsx$approvalrating.$t}</div>
-                      </div>
-                      <div class="approve">
-                        <div class="head">APPROVE</div>
-                        <div class="value">${this.gsx$approve.$t}%</div>  
-                      </div>
-                      <div class="disapprove">
-                        <div class="head">DISAPPROVE</div>
-                        <div class="value">${this.gsx$disapprove.$t}%</div>  
-                      </div>
-                      <div class="no-opinion">
-                        <div class="head">NO OPINION</div>
-                        <div class="value">${this.gsx$noopinion.$t}%</div>  
-                      </div>
-                    </div>
-                    <div class="tweet">${this.gsx$tweet.$t}</div>
+                    <div class="event-image">boo</div>
                   </div>
               </section>`;
             $('.swiper-wrapper').append(template);
@@ -183,6 +187,8 @@
           
           toggleSpinner();
           toggleNavigation(mySwiper);
+          //backgroundSequence();
+          //setTimeout(changeBackground, 5000);
           
         });
       });
@@ -202,16 +208,51 @@
         })
         // hide arrows if first slide
         mySwiper.on('slideChange', function () {
-          if(mySwiper.isBeginning)
+
+          if(mySwiper.realIndex === 0)
           {
             $('.next').addClass('hidden');
           }
-          else if($('.next').hasClass('hidden')){
+          else{
             $('.next').removeClass('hidden');
+            twttr.widgets.load(
+              document.getElementsByClassName("tweet")
+            )
           }
-        });
+        });        
 
       }
+
+      //animate cover images
+
+        var currentBackground = 0;
+        var backgrounds = ["images/GettyImages-902243502.jpg", "images/GettyImages-901874902.jpg"];
+
+        function changeBackground() {
+
+            currentBackground++;
+
+            if(currentBackground > (backgrounds.length-1)) currentBackground = 0;
+
+            
+             $('.cover-image').fadeOut(200,function() {
+
+              $('.cover-image').css({ 
+                  "background" : "linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url("+backgrounds[currentBackground]+") !important",
+                  "background-size": "cover !important",
+                  "background-position-x": "center !important"
+              });
+
+              $('.cover-image').fadeIn(600);
+               
+             });
+
+            
+            // $('.cover-image').fadeIn(600);
+            //console.log({"linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url("+backgrounds[currentBackground]+") !important;"})
+
+            setTimeout(changeBackground, 5000);
+        }
     </script>
 
     <!--Chartbeat AJE header -->
