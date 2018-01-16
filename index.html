@@ -168,7 +168,7 @@
                       </div>
                       <div class="tweet">${this.gsx$tweet.$t}</div>
                     </div>
-                    <div class="event-image">boo</div>
+                    <div class="event-image" style="background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${this.gsx$imageurl.$t}) !important;background-size:cover !important;background-position-x: center !important"></div>
                   </div>
               </section>`;
             $('.swiper-wrapper').append(template);
@@ -187,8 +187,7 @@
           
           toggleSpinner();
           toggleNavigation(mySwiper);
-          //backgroundSequence();
-          //setTimeout(changeBackground, 5000);
+          setTimeout(coverSlider,5000);
           
         });
       });
@@ -225,34 +224,46 @@
 
       //animate cover images
 
-        var currentBackground = 0;
-        var backgrounds = ["images/GettyImages-902243502.jpg", "images/GettyImages-901874902.jpg"];
+      var images = Array("images/GettyImages-901874902.jpg",
+              "images/GettyImages-902243502.jpg");
+      var currimg = 0;
 
-        function changeBackground() {
 
-            currentBackground++;
+      function coverSlider(){
 
-            if(currentBackground > (backgrounds.length-1)) currentBackground = 0;
+        $('.cover-image').animate({ opacity: 1 }, 500,function(){
 
-            
-             $('.cover-image').fadeOut(200,function() {
+              //finished animating, minifade out and fade new back in           
+              $('.cover-image').animate({ opacity: 0.7 }, 400,function(){
 
-              $('.cover-image').css({ 
-                  "background" : "linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url("+backgrounds[currentBackground]+") !important",
-                  "background-size": "cover !important",
-                  "background-position-x": "center !important"
+                  currimg++;
+
+                  if(currimg > images.length-1){
+
+                      currimg=0;
+
+                  }
+
+                  var newimage = images[currimg];
+
+                  //swap out bg src                
+                  $('.cover-image').css("background", "none"); 
+                  $('.cover-image').css("background", "linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url("+newimage+")"); 
+
+                  //animate fully back in
+                  $('.cover-image').animate({ opacity: 1 }, 400,function(){
+
+                      //set timer for next
+                      setTimeout(coverSlider,5000);
+
+                  });
+
               });
 
-              $('.cover-image').fadeIn(600);
-               
-             });
+          });
 
-            
-            // $('.cover-image').fadeIn(600);
-            //console.log({"linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url("+backgrounds[currentBackground]+") !important;"})
-
-            setTimeout(changeBackground, 5000);
         }
+          
     </script>
 
     <!--Chartbeat AJE header -->
