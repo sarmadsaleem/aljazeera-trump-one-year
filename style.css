@@ -4,7 +4,7 @@ body{
 
 header {
   width:100%;
-  height:44px;
+  height:50px;
   padding:0;
   margin:0;
   position: fixed;
@@ -15,8 +15,14 @@ header {
 /*SOCIAL*/
 
 .rrssb-buttons.small-format li {
-  height:34px !important;
+  height:30px !important;
+  margin-top:3px;
+  /* width:30% !important; */
+  
 }
+
+.rrssb-buttons.small-format li a .rrssb-icon svg{top:4px !important;}
+.rrssb-buttons.small-format {padding-top: 7px !important;}
 
 a:visited {
     color: #fb9d04;
@@ -221,7 +227,7 @@ a:link {color: #fb9d04;
 }
 
 .event-image{
-  width:50vw;background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(images/GettyImages-902243502.jpg) !important; background-size:cover !important;background-position-x: center !important;
+  width:50vw;background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(images/GettyImages-902243502.jpg); background-size:cover !important;background-position-x: center !important;
 }
 
 @media screen and (max-width: 720px) {
