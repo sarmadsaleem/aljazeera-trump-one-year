@@ -105,10 +105,32 @@
                 </div>
               </div>
             </section>
+
+            <section class="swiper-slide section" id="s_2">
+              <div class="content" style="display:flex; flex-direction:column; margin-top:50px; margin-bottom:60px;">
+
+                  <a class="month-link" href="#" data-scroll="2017-1"><div class="index-month splash1">January 2017<span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-2"><div class="index-month splash2">February 2017<span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-3"><div class="index-month splash3">March 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-4"><div class="index-month splash4">April 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-5"><div class="index-month splash5">May 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-6"><div class="index-month splash6">June 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-7"><div class="index-month splash7">July 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-8"><div class="index-month splash8">August 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-9"><div class="index-month splash9">September 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-10"><div class="index-month splash10">October 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-11"><div class="index-month splash11">November 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2017-12"><div class="index-month splash12">December 2017 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+                  <a class="month-link" href="#" data-scroll="2018-1"><div class="index-month splash13">January 2018 <span style="float:right;"><i class="arrow right" style="padding:5px"></i></span></div></a>
+
+              </div>
+              
+            </section>
         </div>    
         <!-- If we need navigation buttons -->
         <div class="next hidden">
             <a class="swiper-button-prev a-left" href="#" style=""><i class="arrow left"></i></a>
+            <a class="a-home" href="#"><img src="images/home-sign.png" width="55" height="60" style="padding:10px; opacity:0.8;"/></a>
             <a class="swiper-button-next a-right" href="#" style=""><i class="arrow right"></i></a>
             
         </div>
@@ -139,43 +161,89 @@
   
     <script>
       $(function(){
+
         // fetch data and populate events
         const endpoint = 'https://spreadsheets.google.com/feeds/list/1lDT8cX1RX-mOMcTxkUq0lpNuuBdtgbbmqsiOl43-M-M/4/public/values?alt=json';
+        
         $.getJSON(endpoint, function(data) {
+
           rows = data.feed.entry;
-          let count = 2;
+          let count = 3;
+          let splash = 1;
+
           $(rows).each(function(){
-            const template = `
-              <section class="swiper-slide section" id="s_${count}">
-                  <div style="display:flex; flex-direction: row; height:100%;">
-                    <div class="content">
-                      <div class="event">
-                        <div class="date"><div>${this.gsx$date.$t}</div></div>
-                        <div class="text">${this.gsx$text.$t}</div>  
+
+            console.log(this)
+
+            let template = '';
+
+            if( this.gsx$type.$t === 'Splash' )
+            {
+              let months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'January'];
+              //console.log('splash');
+              //console.log(this);
+              template = `
+                <section class="swiper-slide section splash${splash}" id="s_${count}" data-md="${this.gsx$year.$t}-${this.gsx$month.$t}">
+                    <div style="display:flex; flex-direction: row; min-height:100vh;">
+
+                      <div class="content">
+
+                        <div class="month" style="display:flex;height:40vh; background:url(images/splash-${splash}.jpg); background-size:cover !important; background-position-x: center !important; width:100%; margin-top:50px;">
+                          <div class="month_name" style="margin-top:auto; padding:20px 20px 0 20px;font-size: 60px;line-height: 45px;letter-spacing: -3px;">${months[this.gsx$month.$t]}</div>  
+                        </div>
+                        <div class="summary" style="padding:20px; color:#fff; font-size:16px;">
+                            <p>${this.gsx$text.$t}</p>
+                            <div class="row">
+                              <div class="col-xs-5"><div style="font-size:12px;">Executive Orders</div><div style="font-size: 50px;line-height: 40px;">${this.gsx$executiveorders.$t}</div><div style="font-size:10px; padding-top:5px;">${this.gsx$executiveorderextra.$t}</div></div>
+                              <div class="col-xs-7"><div style="font-size:12px;">Hours at club</div><div style="font-size: 50px;line-height: 40px;">${this.gsx$clubhours.$t}</div></div>
+                            <div>
+                        <div>
+                        
                       </div>
-                      <div class="ratings">
-                        <div class="date">
-                          <div class="head">APPROVAL RATING</div>
-                          <div class="value">${this.gsx$approvalrating.$t}</div>
-                        </div>
-                        <div class="approve">
-                          <div class="head">APPROVE</div>
-                          <div class="value">${this.gsx$approve.$t}%</div>  
-                        </div>
-                        <div class="disapprove">
-                          <div class="head">DISAPPROVE</div>
-                          <div class="value">${this.gsx$disapprove.$t}%</div>  
-                        </div>
-                        <div class="no-opinion">
-                          <div class="head">NO OPINION</div>
-                          <div class="value">${this.gsx$noopinion.$t}%</div>  
-                        </div>
-                      </div>
-                      <div class="tweet">${this.gsx$tweet.$t}</div>
+                      
                     </div>
-                    <div class="event-image" style="background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${this.gsx$imageurl.$t}) !important;background-size:cover !important;background-position-x: center !important"></div>
-                  </div>
-              </section>`;
+                </section>`;
+                splash++;
+            }
+
+            if( this.gsx$type.$t === 'Event' )
+            {
+              template = `
+                <section class="swiper-slide section" id="s_${count}">
+                    <div style="display:flex; flex-direction: row; height:100%;">
+
+                      <div class="content">
+                        <div class="event">
+                          <div class="date"><div>${this.gsx$date.$t}</div></div>
+                          <div class="text">${this.gsx$text.$t}</div>  
+                        </div>
+                        <div class="ratings">
+                          <div class="date">
+                            <div class="head">APPROVAL RATING</div>
+                            <div class="value">${this.gsx$approvalrating.$t}</div>
+                          </div>
+                          <div class="approve">
+                            <div class="head">APPROVE</div>
+                            <div class="value">${this.gsx$approve.$t}%</div>  
+                          </div>
+                          <div class="disapprove">
+                            <div class="head">DISAPPROVE</div>
+                            <div class="value">${this.gsx$disapprove.$t}%</div>  
+                          </div>
+                          <div class="no-opinion">
+                            <div class="head">NO OPINION</div>
+                            <div class="value">${this.gsx$noopinion.$t}%</div>  
+                          </div>
+                        </div>
+                        <div class="tweet">${this.gsx$tweet.$t}</div>
+                      </div>
+                      
+                    </div>
+                </section>`;
+
+            }
+            
+            
             $('.swiper-wrapper').append(template);
             count++;
           });
@@ -184,15 +252,31 @@
           const mySwiper = new Swiper ('.swiper-container', {
             direction: 'horizontal',
             loop: false,
+            autoHeight: true,
             navigation: {
               nextEl: '.swiper-button-next',
               prevEl: '.swiper-button-prev',
-            },
+            }
+          })
+
+          $('.next .a-home').on('click', function(){
+            mySwiper.slideTo(1);
+          })
+
+          $('.month-link').on('click', function(){
+            let splashMd = $(this).attr('data-scroll');
+            let splashId = $('section[data-md="' + splashMd + '"]').attr('id');
+            
+            splashId = splashId.split('_');
+            console.log(splashId);
+            
+            mySwiper.slideTo(splashId[1]-1)
+
           })
           
           toggleSpinner();
           toggleNavigation(mySwiper);
-          setTimeout(coverSlider,5000);
+          setTimeout(coverSlider, 5000);
           
         });
       });
@@ -209,6 +293,9 @@
         // slide to second
         $('.arrow-container').on('click', function(){
           mySwiper.slideNext();
+          twttr.widgets.load(
+              document.getElementsByClassName("tweet")
+            )
         })
         // hide arrows if first slide
         mySwiper.on('slideChange', function () {
@@ -219,9 +306,7 @@
           }
           else{
             $('.next').removeClass('hidden');
-            twttr.widgets.load(
-              document.getElementsByClassName("tweet")
-            )
+            
           }
         });        
 
