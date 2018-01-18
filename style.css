@@ -12,7 +12,18 @@ header {
   background-color: #333333;
 }
 
+header img{
+  margin-top:3px;
+}
+
 /*SOCIAL*/
+.sb-container{
+  position: relative;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 140px;
+  float: right;
+}
 
 .rrssb-buttons.small-format li {
   height:30px !important;
@@ -53,18 +64,17 @@ a:link {color: #fb9d04;
 }
 
 .cover-image{
-  background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url('images/GettyImages-901874902.jpg');
-  background-size:cover !important; 
-  background-position-x: center !important; 
   position:absolute; 
   /* z-index:5;  */
   width:100vw; 
   height:100%;
+  background-size:cover !important; 
+  background-position-x: center !important; 
   
 }
 
 .cover .content{
-  min-height:100%; position:relative; z-index:10;padding:0 20px 0 20px; width:100vw;
+  min-height:100%; position:relative; z-index:10;padding:0 20px 0 20px; width:100vw;justify-content: space-between;
 }
 
 .headline{
@@ -94,7 +104,7 @@ a:link {color: #fb9d04;
 
 .section .event .date{font-size:24px; border-bottom:1px solid #fff;}
 .section .event .date div{padding:20px 20px 10px 20px;}
-.section .event .text{border-left:1px solid #fff; margin-left:40px; padding:10px 20px 10px 20px;font-size:18px;}
+.section .event .text{border-left:1px solid #fff; margin-left:40px; padding:10px 20px 10px 20px;font-size:16px;}
 
 .section .tweet{
   padding:5px 20px 0 20px;
@@ -106,7 +116,7 @@ a:link {color: #fb9d04;
     color:#fff;
     padding:12px 20px 12px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
     font-size:13px;
     text-align:center;
@@ -118,13 +128,13 @@ a:link {color: #fb9d04;
 .section .ratings .head{
   display: block;
   padding:0 0 5px 0;
-  font-size:10.5px;
+  font-size:12px;
 }
 
 .section .ratings .value{
   display: block;
   color:#FF9900;
-  font-size:15px;
+  font-size:18px;
   
 }
 
@@ -138,9 +148,16 @@ a:link {color: #fb9d04;
   bottom:0;
   z-index:10;
   display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.next .arrow{
+  padding:6px;
+}
+
+.next .a-home img{
+  padding:10px; opacity:0.8;
 }
 
 .a-right, .a-left{
@@ -181,124 +198,20 @@ a:link {color: #fb9d04;
   -webkit-transform: rotate(135deg);
 }
 
-/* spinner */
-.loader{
-  display: flex;
-      align-items: center;
-  justify-content: center; min-height:100vh;
-}
+.splash-container{display:flex; flex-direction: row; min-height:100vh;}
+.splash-container .month{display:flex;height:40vh; background-size:cover !important; background-position-x: center !important; width:100%; margin-top:50px;}
+.splash-container .month .month-name{margin-top:auto; padding:20px 20px 0 20px;font-size: 60px;line-height: 45px;letter-spacing: -3px; width:100%;}
+.splash-container .summary{padding:20px; color:#fff; font-size:16px;}
+.splash-container .summary .stats{margin-top:30px;}
+.splash-container .summary .stats .stat-name{font-size:12px;}
+.splash-container .summary .stats .stat-value{font-size: 50px;line-height: 40px;}
+.splash-container .summary .stats .stat-extra{font-size:10px; padding-top:5px;}
 
-.spinner {
-  width: 40px;
-  height: 40px;
+.event-container{display:flex; flex-direction: row; height:100%;}
+.approve{margin:0 15px 0 15px}
+.disapprove{margin:0 15px 0 15px}
+.no-opinion{margin:0 15px 0 15px}
 
-  position: relative;
-  margin: 100px auto;
-}
-
-.double-bounce1, .double-bounce2 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: #333;
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  left: 0;
-  
-  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-  animation: sk-bounce 2.0s infinite ease-in-out;
-}
-
-.double-bounce2 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
-
-@-webkit-keyframes sk-bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes sk-bounce {
-  0%, 100% { 
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 50% { 
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
-  }
-}
-
-/* swiper */
-.swiper-container {
-  width: auto;
-  min-height: 100vh;
-  height: auto;
-}
-
-.event-image{
-  width:50vw;background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(images/GettyImages-902243502.jpg); background-size:cover !important;background-position-x: center !important;
-}
-
-@media screen and (min-width: 720px) {
-  .content {
-      width:100%;
-  }
-
-  
-
-  .cover{
-    width:100vw !important;
-  }
-
-}
-
-@media screen and (min-width: 980px) {
-  .content {
-      width:100%;
-  }
-
-  
-
-  .cover{
-    width:100vw !important;
-  }
-
-}
-
-@media screen and (min-width: 1080px) {
-  .content {
-      width:100%;
-  }
-
-  
-
-  .cover{
-    width:100vw !important;
-  }
-
-}
-
-@media screen and (min-width:560px) and (max-width: 720px) {
-  
-  .section .ratings .head {font-size:14px;}
-  .section .ratings .value {font-size:20px;}
-  .section .event .date{font-size: 24px;}
-  .section .event .text{font-size:20px;padding: 25px 50px 10px 50px;}
-  
-}
-
-@media screen and (min-width: 920px){
-  .section .ratings .head {font-size:14px;}
-  .section .ratings .value {font-size:20px;}
-} 
-
-@media screen and (min-width: 1080px)
-{
-  .tweet{margin:0 auto;}
-  .section .event .text{font-size:18px;padding: 25px 50px 10px 50px;}
-}
 
 .splash1 {
   background:#660033;
@@ -353,9 +266,144 @@ a:link {color: #fb9d04;
   color: #666633;
 }
 
+.index-container{
+  display:flex; flex-direction:column; margin-top:50px; margin-bottom:45px;
+}
+
 .index-month{
   width:100%;
   padding:10px 20px 10px 20px;
-  color:#fff;
+  /* color:#fff; */
+  color: #666666;
   font-size:20px;
+}
+
+.index-month .ac{
+  float:right;
+}
+
+.index-month span .arrow{
+  padding:5px;
+}
+
+.month-link .arrow{border-color:#666;}
+
+.mi-cont{display:inline-block; width:45px; line-height:7px; text-align:center; margin-left:0px;color:#fff;}
+.mi-per{display:inline-block; padding:5px; border-radius:50px; font-size:16px; padding:5px;}
+.mi-lab{display:inline-block; font-size:8px; text-align:center; color:#666666; display:none;}
+
+/* spinner */
+.loader{
+  display: flex;
+      align-items: center;
+  justify-content: center; min-height:100vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+
+  position: relative;
+  margin: 100px auto;
+  max-width: 50%;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
+/* swiper */
+.swiper-container {
+  width: auto;
+  min-height: 100vh;
+  height: auto;
+}
+
+@media screen and (min-width: 720px) {
+  .content {
+      width:100%;
+  }
+  .cover{
+    width:100vw !important;
+  }
+
+}
+
+@media screen and (min-width: 980px) {
+  .content {
+      width:100%;
+  }
+
+  .cover{
+    width:100vw !important;
+  }
+
+  
+
+}
+
+@media screen and (min-width: 1080px) {
+  .content {
+      width:100%;
+  }
+  .cover{
+    width:100vw !important;
+  }
+
+}
+
+@media screen and (min-width:560px) and (max-width: 720px) {
+  
+  .section .ratings .head {font-size:14px;}
+  .section .ratings .value {font-size:20px;}
+  .section .event .date{font-size: 24px;}
+  .section .event .text{font-size:20px;padding: 25px 50px 10px 50px;}
+  
+}
+
+@media screen and (min-width: 920px){
+  .section .ratings .head {font-size:14px;}
+  .section .ratings .value {font-size:20px;}
+  .splash-container .summary{font-size:24px;}
+  .splash-container .summary .stats .stat-name{font-size:18px;}
+  .splash-container .summary .stats .stat-value{font-size:65px;}
+  .splash-container .month .month-name{font-size: 75px;line-height: 55px;}
+  .section .event {min-height:35vh;}
+  .splash-container .month{background-position: 50% 10% !important;}
+} 
+
+@media screen and (min-width: 1080px)
+{
+  .tweet{margin:0 auto;}
+  .section .event .text{font-size:18px;padding: 25px 50px 10px 50px;}
 }
