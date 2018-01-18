@@ -130,7 +130,7 @@ a:link {color: #fb9d04;
 
 .next{
   background: #605F5F;
-  height: 60px;
+  height: 45px;
   align-self: end;
   width: 100vw;
   margin-top:auto;
@@ -144,7 +144,7 @@ a:link {color: #fb9d04;
 }
 
 .a-right, .a-left{
-  padding:17px 20px;
+  padding:11px 20px;
   background-image:none !important;
   position: relative !important;
   width: auto !important;
@@ -153,6 +153,7 @@ a:link {color: #fb9d04;
   cursor: pointer !important; 
   top:0 !important; 
   left:0 !important;
+  opacity:0.8;
 }
 
 .a-left{float:left;}
@@ -245,10 +246,7 @@ a:link {color: #fb9d04;
       width:100%;
   }
 
-  .section{
-    min-height: auto;
-    width: 50vw !important;
-  }
+  
 
   .cover{
     width:100vw !important;
@@ -261,10 +259,7 @@ a:link {color: #fb9d04;
       width:100%;
   }
 
-  .section{
-    min-height: auto;
-    width: 33.33333vw !important;
-  }
+  
 
   .cover{
     width:100vw !important;
@@ -277,10 +272,7 @@ a:link {color: #fb9d04;
       width:100%;
   }
 
-  .section{
-    min-height: auto;
-    width: 25vw !important;
-  }
+  
 
   .cover{
     width:100vw !important;
