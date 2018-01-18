@@ -101,9 +101,9 @@ $(function(){
       count++;
     });
 
-    // twttr.widgets.load(
-    //   document.getElementsByClassName("tweet")
-    // )
+    twttr.widgets.load(
+      document.getElementsByClassName("tweet")
+    )
 
     // create swiper based on fetched data
     const mySwiper = new Swiper ('.swiper-container', {
