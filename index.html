@@ -293,9 +293,7 @@
         // slide to second
         $('.arrow-container').on('click', function(){
           mySwiper.slideNext();
-          twttr.widgets.load(
-              document.getElementsByClassName("tweet")
-            )
+          
         })
         // hide arrows if first slide
         mySwiper.on('slideChange', function () {
@@ -306,6 +304,9 @@
           }
           else{
             $('.next').removeClass('hidden');
+            twttr.widgets.load(
+              document.getElementsByClassName("tweet")
+            )
             
           }
         });        
