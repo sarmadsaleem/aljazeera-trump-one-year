@@ -403,8 +403,7 @@ a:link {color: #fb9d04;
   .splash-container .month .month-name{font-size: 75px;line-height: 55px;}
   .section .event {min-height:35vh;}
   /* .splash-container .month{background-position: 50% 10% !important;} */
-  section[data-md="2017-12"] .splash-container .month{background-position:50% 46% !important;}
-  section[data-md="2017-11"] .splash-container .month{background-position:50% 70% !important;}
+  
   section[data-md="2017-7"] .splash-container .month{background-position:50% 24% !important;}
   section[data-md="2017-1"] .splash-container .month{background-position:50% 15% !important;}
   section[data-md="2017-2"] .splash-container .month{background-position:50% 38% !important;}
@@ -412,6 +411,10 @@ a:link {color: #fb9d04;
   section[data-md="2017-4"] .splash-container .month{background-position:50% 20% !important;}
   section[data-md="2017-5"] .splash-container .month{background-position:50% 35% !important;}
   section[data-md="2017-6"] .splash-container .month{background-position:50% 35% !important;}
+  section[data-md="2017-9"] .splash-container .month{background-position:50% 10% !important;}
+  section[data-md="2017-11"] .splash-container .month{background-position:50% 70% !important;}
+  section[data-md="2017-12"] .splash-container .month{background-position:50% 46% !important;}
+  
   section[data-md="2018-1"] .splash-container .month{background-position:50% 77% !important;}
 
 } 
