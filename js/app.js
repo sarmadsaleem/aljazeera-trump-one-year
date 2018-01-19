@@ -1,24 +1,23 @@
 'use strict';
-$(function(){
+$(function () {
 
-  $('[data-toggle="tooltip"]').tooltip()
+  // $('[data-toggle="tooltip"]').tooltip()
 
   // fetch data and populate events
   const endpoint = 'https://spreadsheets.google.com/feeds/list/1lDT8cX1RX-mOMcTxkUq0lpNuuBdtgbbmqsiOl43-M-M/4/public/values?alt=json';
-  
-  $.getJSON(endpoint, function(data) {
+
+  $.getJSON(endpoint, function (data) {
 
     let rows = data.feed.entry;
     let count = 3;
     let splash = 1;
 
-    $(rows).each(function(){
+    $(rows).each(function () {
 
       let template = '';
 
       // monthly splash screen template
-      if( this.gsx$type.$t === 'Splash' )
-      {
+      if (this.gsx$type.$t === 'Splash') {
         let months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'January'];
         //console.log('splash');
         //console.log(this);
@@ -56,12 +55,11 @@ $(function(){
                 </div>
               </div>
           </section>`;
-          splash++;
+        splash++;
       }
 
       // event template
-      if( this.gsx$type.$t === 'Event' )
-      {
+      if (this.gsx$type.$t === 'Event') {
         let tweet = this.gsx$tweet.$t;
         tweet = tweet.replace('<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>', '');
 
@@ -106,7 +104,7 @@ $(function(){
     )
 
     // create swiper based on fetched data
-    const mySwiper = new Swiper ('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
       direction: 'horizontal',
       loop: false,
       autoHeight: true,
@@ -114,86 +112,85 @@ $(function(){
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       }
-    })   
+    })
 
     monthlyNavigation(mySwiper);
     toggleSpinner();
     toggleNavigation(mySwiper);
     setTimeout(coverSlider, 5000);
 
-    
-    
+
+
   });
 });
 
 /* hook up monthly navigation with proper slides */
-function monthlyNavigation(mySwiper){
+function monthlyNavigation(mySwiper) {
 
-  $('.month-link').on('click', function(){
-      let splashMd = $(this).attr('data-scroll');
-      let splashId = $('section[data-md="' + splashMd + '"]').attr('id');
-      splashId = splashId.split('_');
-      mySwiper.slideTo(splashId[1]-1)
-    });
+  $('.month-link').on('click', function () {
+    let splashMd = $(this).attr('data-scroll');
+    let splashId = $('section[data-md="' + splashMd + '"]').attr('id');
+    splashId = splashId.split('_');
+    mySwiper.slideTo(splashId[1] - 1)
+  });
 }
 
 /* hide spinner and show content */
-function toggleSpinner(){
+function toggleSpinner() {
 
   $('.loader').toggleClass('hidden');
   $('#swiper-container').toggleClass('hidden');
 }
 
 /* show navigational arrows after first card */
-function toggleNavigation(mySwiper){
+function toggleNavigation(mySwiper) {
 
   // on cover arrow click slide to index page
-  $('.arrow-container').on('click', function(){
+  $('.arrow-container').on('click', function () {
     mySwiper.slideNext();
-    
+
   })
 
   // hide persistent navigation at bottom if first slide
   mySwiper.on('slideChange', function () {
 
-    if(mySwiper.realIndex === 0)
-    {
+    if (mySwiper.realIndex === 0) {
       $('.next').addClass('hidden');
     }
-    else{
+    else {
       $('.next').removeClass('hidden');
-      
+
     }
   });
 
   // persistent navigation home button
-  $('.next .a-home').on('click', function(){
+  $('.next .a-home').on('click', function () {
     mySwiper.slideTo(1);
   });
 
 }
 
 /* animate cover images */
-var images = Array("images/GettyImages-901874902.jpg", "images/GettyImages-902243502.jpg");
-var currimg = 0;
+let images = Array("images/GettyImages-901874902.jpg", "images/GettyImages-902243502.jpg");
+let currimg = 0;
 
-function coverSlider(){
+function coverSlider() {
 
-  $('.cover-image').animate({ opacity: 1 }, 500,function(){
-    $('.cover-image').animate({ opacity: 0.7 }, 400,function(){
-        currimg++;
+  $('.cover-image').animate({ opacity: 1 }, 500, function () {
+    $('.cover-image').animate({ opacity: 0.7 }, 400, function () {
+      currimg++;
 
-        
-        if(currimg > images.length-1){
-            currimg=0;
-        }
-        var newimage = images[currimg];
-        
-        $('.cover-image').css("background", "none"); 
-        $('.cover-image').css("background", "linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url("+newimage+")"); 
-        $('.cover-image').animate({ opacity: 1 }, 400,function(){
-            setTimeout(coverSlider,5000);
-        });
+
+      if (currimg > images.length - 1) {
+        currimg = 0;
+      }
+      let newimage = images[currimg];
+
+      $('.cover-image').css("background", "none");
+      $('.cover-image').css("background", "linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0.8)), url(" + newimage + ")");
+      $('.cover-image').animate({ opacity: 1 }, 400, function () {
+        setTimeout(coverSlider, 5000);
+      });
     });
   });
 }
